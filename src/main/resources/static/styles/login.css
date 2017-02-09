@@ -1,0 +1,33 @@
+.login-view {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 300px;
+}
+
+.login-view .title {
+    text-align: center;
+    font-size: 4em;
+}
+
+.login-view label {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0;
+}
+
+.login-view label input {
+    width: 220px;
+    height: 30px;
+    float: right;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 10px 0;
+}
