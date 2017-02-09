@@ -1,38 +1,30 @@
 package com.dakor.app;
 
-import com.dakor.app.data.dao.IUserDao;
 import com.dakor.app.data.entity.UserEntity;
+import com.dakor.app.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @SpringBootApplication
 public class CordersApplication {
 	@Autowired
-	private IUserDao userDao;
+	private IUserService userService;
 
 	@RequestMapping("/")
 	public String welcome(@RequestParam("p") String param) {
 		String name;
 
-		List<UserEntity> users = userDao.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "id")));
 		if (param.equals("1")) {
-			name = users.get(0).getName();
+			name = userService.getUserByLoginName("guest").getFirstName();
 		} else {
-			name = users.get(1).getName();
+			name = userService.getUserByLoginName("login").getLastName();
 		}
 
 		return "welcome, " + name;
@@ -42,23 +34,24 @@ public class CordersApplication {
 		SpringApplication.run(CordersApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	CommandLineRunner getCommandLineRunner() {
 		return args -> {
-			List<UserEntity> users = new ArrayList<>();
 			UserEntity user = new UserEntity();
 			user.setLogin("login");
-			user.setName("name");
-			user.setCreatedDate(new Date());
-			users.add(user);
+			user.setFirstName("first name");
+			user.setLastName("last name");
+			user.setPassword("123456");
+			user.setEmail("dakor@meta.ua");
+			userService.save(user);
 
 			user = new UserEntity();
 			user.setLogin("guest");
-			user.setName("guest");
-			user.setCreatedDate(new Date());
-			users.add(user);
-
-			userDao.save(users);
+			user.setFirstName("guest name");
+			user.setLastName("guest surname");
+			user.setPassword("quest");
+			user.setEmail("guest@mail.com");
+			userService.save(user);
 		};
-	}
+	}*/
 }
