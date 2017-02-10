@@ -1,12 +1,14 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Login Page</title>
+	<title><spring:message code="title"/></title>
 	<link type="text/css" rel="stylesheet" href="/static/styles/login.css">
 	<script type="text/javascript" async=""></script>
 </head>
 
 <body onload="document.form.username.focus();">
+Language : <a href="?lang=en">English</a> | <a href="?lang=ru">French</a>
 <form id="loginForm" name="form" action="/login" method="POST">
 	<div class="login-view">
 		<div class="title">Credentials</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title th:text="#{login.title}"></title>
+	<link rel="stylesheet" th:href="@{/styles/login.css}" href="../static/styles/login.css" />
+	<script type="text/javascript" async=""></script>
+</head>
+
+<body onload="document.form.username.focus();">
+Language : <a href="?lang=en">English</a> | <a href="?lang=ru">French</a>
+<form id="loginForm" name="form" action="/login" method="POST">
+	<div class="login-view">
+		<div class="title">Credentials</div>
+		<label class="user-name">
+			Login
+			<input type="text" name="username" title="Login"/>
+		</label>
+		<label class="user-password">
+			Password
+			<input type="password" name="password" title="Password"/>
+		</label>
+		<input type="submit" class="button" value="Login"/>
+		<input type="button" class="button" onclick="location.href='registration'" value="Create account"/>
+		<input type="button" class="button" onclick="loginAnonymously()" value="Login as guest"/>
+	</div>
+</form>
+</body>
+<script type="text/javascript">
+	function loginAnonymously() {
+		document.getElementsByName('username')[0].value = 'guest';
+		document.getElementsByName('password')[0].value = 'guest';
+		document.getElementById("loginForm").submit();
+	}
+</script>
+</html>

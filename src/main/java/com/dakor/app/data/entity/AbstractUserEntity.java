@@ -24,15 +24,14 @@ public class AbstractUserEntity extends AbstractEntity {
 	@Column(name = "EMAIL", nullable = false, unique = true, length = 50)
 	private String email;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ROLE_ID", nullable = false)
-	private UserRoleEntity userRole;
+	@Column(name = "ROLE", nullable = false, length = 5)
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	@PrePersist
 	public void prePersist() {
-		if (userRole == null) {
-			userRole = new UserRoleEntity();
-			userRole.setRole("USER");
+		if (role == null) {
+			role = Role.USER;
 		}
 	}
 
@@ -76,11 +75,11 @@ public class AbstractUserEntity extends AbstractEntity {
 		this.email = email;
 	}
 
-	public UserRoleEntity getUserRole() {
-		return userRole;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setUserRole(UserRoleEntity userRole) {
-		this.userRole = userRole;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }
