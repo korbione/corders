@@ -1,14 +1,15 @@
 package com.dakor.app.config;
 
+import com.dakor.app.data.entity.Role;
+import com.dakor.app.system.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,16 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author dkor
  */
 @Configuration
-@EnableWebSecurity
-//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@EnableAutoConfiguration
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-
-        web.ignoring().antMatchers("/favicon.ico", "/title.png", "/styles/**", "/static/styles/**");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,19 +32,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/app").failureUrl("/login?error").permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/login?logout")
-                .and()
-                .csrf().disable();
+                .logout().logoutSuccessUrl("/login?logout");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("guest").password("guest").roles("USER");
+        auth.userDetailsService(getUserDetailsService())
+                .and().inMemoryAuthentication().withUser("guest").password("guest").roles(Role.DEMO.name());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
+    }
+
+    @Bean
+    public UserDetailsService getUserDetailsService() {
+        return new UserDetailsService();
     }
 }

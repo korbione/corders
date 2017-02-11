@@ -1,15 +1,13 @@
 package com.dakor.app.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -22,29 +20,19 @@ import java.util.Locale;
  * @author dkor
  */
 @Configuration
-@EnableWebMvc
+@EnableAutoConfiguration
 //@EnableTransactionManagement
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class MvcConfig extends WebMvcConfigurerAdapter {
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         super.addViewControllers(registry);
 
-        registry.addRedirectViewController("/*", "/app");
+        registry.addRedirectViewController("/", "/app");
         registry.addViewController("/login*").setViewName("login");
         registry.addViewController("/registration*").setViewName("registration");
         registry.addViewController("/app*").setViewName("app");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        super.configureDefaultServletHandling(configurer);
-//        configurer.enable();
     }
 
     @Bean

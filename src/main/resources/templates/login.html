@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title th:text="#{login.title}"></title>
-	<link rel="stylesheet" th:href="@{/styles/login.css}" href="../static/styles/login.css" />
+	<link type="text/css" rel="stylesheet" th:href="@{/css/login.css}" href="../static/css/login.css" />
 	<script type="text/javascript" async=""></script>
 </head>
 
-<body onload="document.form.username.focus();">
-Language : <a href="?lang=en">English</a> | <a href="?lang=ru">French</a>
-<form id="loginForm" name="form" action="/login" method="POST">
+<body>
+<form id="loginForm" th:action="@{/login}" method="POST">
 	<div class="login-view">
 		<div class="title">Credentials</div>
 		<label class="user-name">
 			Login
-			<input type="text" name="username" title="Login"/>
+			<input type="text" name="username" title="Login" autofocus="autofocus"/>
 		</label>
 		<label class="user-password">
 			Password

@@ -2,40 +2,22 @@ package com.dakor.app;
 
 import com.dakor.app.data.entity.UserEntity;
 import com.dakor.app.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Profile;
 
-//@RestController
 @SpringBootApplication
+@Profile("dev")
 public class CordersApplication {
-	@Autowired
-	private IUserService userService;
-/*
-	@RequestMapping("/")
-	public String welcome(@RequestParam("p") String param) {
-		String name;
-
-		if (param.equals("1")) {
-			name = userService.getUserByLoginName("guest").getFirstName();
-		} else {
-			name = userService.getUserByLoginName("login").getLastName();
-		}
-
-		return "welcome, " + name;
-	}*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(CordersApplication.class, args);
 	}
 
 	@Bean
-	CommandLineRunner getCommandLineRunner() {
+	CommandLineRunner getCommandLineRunner(IUserService userService) {
 		return args -> {
 			if (userService.getUserByLoginName("login") == null) {
 				UserEntity user = new UserEntity();

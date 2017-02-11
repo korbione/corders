@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
-	<meta charset="UTF-8">
-	<title>Registration</title>
-	<link type="text/css" rel="stylesheet" href="../../styles/login.css">
+	<meta charset="UTF-8"/>
+	<title th:text="#{registration.title}"></title>
+
 	<script type="text/javascript" async=""></script>
+
+	<link type="text/css" rel="stylesheet" th:href="@{/css/registration.css}" href="../static/css/registration.css"/>
+
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"
 			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 			crossorigin="anonymous"></script>
+	<script type="text/javascript" th:src="@{/js/registration.js}" src="../static/js/registration.js"></script>
 </head>
 <body>
-<form id="registrationForm" modelAttribute="user" action="/registration/register" method="POST">
+<form id="registrationForm" modelAttribute="user" th:action="@{/registration}" method="POST">
 	<div class="login-view">
 		<div class="title">Credentials</div>
 		<label class="user-name">
 			Login
-			<input type="text" name="username" placeholder="Enter your login">
+			<input type="text" name="username" placeholder="Enter your login"/>
 		</label>
 		<label class="user-name">
 			Email
-			<input type="email" name="email" placeholder="Enter your contact email">
+			<input type="email" name="email" placeholder="Enter your contact email"/>
 		</label>
 		<label class="user-password">
 			Password
-			<input type="password" name="password" placeholder="Enter your password">
+			<input type="password" name="password" placeholder="Enter your password"/>
 		</label>
 		<label class="user-password">
 			Password
-			<input type="password" name="confirmPassword" placeholder="Confirm your password">
+			<input type="password" name="confirmPassword" placeholder="Confirm your password"/>
 		</label>
-		<input type="submit" class="button" value="Create account">
+		<input type="submit" class="button" value="Create account"/>
 	</div>
 </form>
 <div id="pswd_info">
@@ -42,95 +47,4 @@
 	</ul>
 </div>
 </body>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('input[type=password]').keyup(function() {
-			var pswd = $(this).val();
-
-			//validate the length
-			if ( pswd.length < 8 ) {
-				$('#length').removeClass('valid').addClass('invalid');
-			} else {
-				$('#length').removeClass('invalid').addClass('valid');
-			}
-
-			//validate letter
-			if ( pswd.match(/[A-z]/) ) {
-				$('#letter').removeClass('invalid').addClass('valid');
-			} else {
-				$('#letter').removeClass('valid').addClass('invalid');
-			}
-
-			//validate capital letter
-			if ( pswd.match(/[A-Z]/) ) {
-				$('#capital').removeClass('invalid').addClass('valid');
-			} else {
-				$('#capital').removeClass('valid').addClass('invalid');
-			}
-
-			//validate number
-			if ( pswd.match(/\d/) ) {
-				$('#number').removeClass('invalid').addClass('valid');
-			} else {
-				$('#number').removeClass('valid').addClass('invalid');
-			}
-		}).focus(function() {
-			var offset = $(this).offset();
-			var height = $(this).height();
-
-			$('#pswd_info').css({
-				'left': offset.left + "px",
-				'top': offset.top + height + "px"
-			}).show();
-		}).blur(function() {
-			$('#pswd_info').hide();
-		});
-	});
-</script>
-
-<style type="text/css">
-	#pswd_info {
-		display:none;
-		position:absolute;
-		width:250px;
-		margin-top:15px;
-		background:#fefefe;
-		font-size:.875em;
-		border-radius:5px;
-		box-shadow:0 1px 3px #ccc;
-		border:1px solid #ddd;
-	}
-
-	#pswd_info h4 {
-		margin-bottom: 10px;
-		padding:0;
-		font-weight:normal;
-	}
-
-	#pswd_info::before {
-		content: "\25B2";
-		position:absolute;
-		top:-12px;
-		left:45%;
-		font-size:14px;
-		line-height:14px;
-		color:#ddd;
-		text-shadow:none;
-		display:block;
-	}
-
-	.invalid {
-		/*background:url(../images/invalid.png) no-repeat 0 50%;*/
-		padding-left:22px;
-		line-height:24px;
-		color:#ec3f41;
-	}
-	.valid {
-		/*background:url(../images/valid.png) no-repeat 0 50%;*/
-		padding-left:22px;
-		line-height:24px;
-		color:#3a7d34;
-	}
-</style>
 </html>
