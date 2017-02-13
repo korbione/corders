@@ -14,12 +14,10 @@
 			crossorigin="anonymous"></script>
 	<script type="text/javascript" th:src="@{/js/registration.js}" src="../static/js/registration.js"></script>
 </head>
-
 <body>
-<div class="background" style="width: 100%; height: 100%;"></div>
 <form id="registrationForm" modelAttribute="user" th:action="@{/registration}" method="POST">
 	<div class="login-view">
-		<label class="title">Registration</label>
+		<div class="title">Credentials</div>
 		<label class="user-name">
 			Login
 			<input type="text" name="username" placeholder="Enter your login"/>
@@ -39,7 +37,6 @@
 		<input type="submit" class="button" value="Create account"/>
 	</div>
 </form>
-<!--</div>-->
 <div id="pswd_info">
 	<h4>Password must meet the following requirements:</h4>
 	<ul>
@@ -50,5 +47,4 @@
 	</ul>
 </div>
 </body>
-
 </html>
