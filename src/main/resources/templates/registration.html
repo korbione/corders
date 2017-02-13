@@ -1,53 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  th:with="lang=${#locale.language}" th:lang="${lang}">
+      th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
-	<meta charset="UTF-8"/>
-	<title th:text="#{registration.title}"></title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <title th:text="#{registration.title}"></title>
 
-	<script type="text/javascript" async=""></script>
+    <script type="text/javascript" async=""></script>
 
-	<link type="text/css" rel="stylesheet" th:href="@{/css/registration.css}" href="../static/css/registration.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/registration.css}" href="../static/css/registration.css"/>
 
-	<script src="http://code.jquery.com/jquery-3.1.1.min.js"
-			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-			crossorigin="anonymous"></script>
-	<script type="text/javascript" th:src="@{/js/registration.js}" src="../static/js/registration.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/registration.js}" src="../static/js/registration.js"></script>
 </head>
 
 <body>
-<div class="background" style="width: 100%; height: 100%;"></div>
-<form id="registrationForm" modelAttribute="user" th:action="@{/registration}" method="POST">
-	<div class="login-view">
-		<label class="title">Registration</label>
-		<label class="user-name">
-			Login
-			<input type="text" name="username" placeholder="Enter your login"/>
-		</label>
-		<label class="user-name">
-			Email
-			<input type="email" name="email" placeholder="Enter your contact email"/>
-		</label>
-		<label class="user-password">
-			Password
-			<input type="password" name="password" placeholder="Enter your password"/>
-		</label>
-		<label class="user-password">
-			Password
-			<input type="password" name="confirmPassword" placeholder="Confirm your password"/>
-		</label>
-		<input type="submit" class="button" value="Create account"/>
-	</div>
+<div class="background"></div>
+<form id="registrationForm" th:action="@{/registration}" method="POST">
+    <div class="login-view">
+        <label class="title">Registration</label>
+        <input type="text" name="username" placeholder="Enter your login"/>
+        <input type="email" name="email" placeholder="Enter your contact email"/>
+        <input type="password" name="password" placeholder="Enter your password"/>
+        <input type="password" name="confirmPassword" placeholder="Confirm your password"/>
+        <input type="submit" class="button" value="Create account"/>
+    </div>
 </form>
-<!--</div>-->
 <div id="pswd_info">
-	<h4>Password must meet the following requirements:</h4>
-	<ul>
-		<li id="letter" class="invalid">At least <strong>one letter</strong></li>
-		<li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
-		<li id="number" class="invalid">At least <strong>one number</strong></li>
-		<li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
-	</ul>
+    <h4>Password must meet the following requirements:</h4>
+    <ul>
+        <li id="letter" class="invalid">At least <strong>one letter</strong></li>
+        <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+        <li id="number" class="invalid">At least <strong>one number</strong></li>
+        <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+    </ul>
 </div>
 </body>
 
